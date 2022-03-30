@@ -12,7 +12,7 @@ class ZendeskApi
             'base_uri' => 'https://' . $subdomain . '.zendesk.com/api/v2/',
             'headers' => [
                 'Accept' => 'application/json',
-                'Authorization' => 'Basic ' . base64_encode($email . '/tocken:' . $token),
+                'Authorization' => 'Basic ' . base64_encode($email . '/token:' . $token),
             ],
         ]);
     }

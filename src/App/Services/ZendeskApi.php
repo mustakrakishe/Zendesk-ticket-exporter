@@ -19,6 +19,8 @@ class ZendeskApi
 
     public function getTickets()
     {
-        return $this->client->get('tickets');
+        $response = $this->client->get('tickets');
+        $content = $response->getBody()->getContents();
+        return json_decode($content, true)['tickets'];
     }
 }

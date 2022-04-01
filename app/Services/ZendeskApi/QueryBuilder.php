@@ -6,8 +6,8 @@ use \GuzzleHttp\Psr7\Uri;
 
 class QueryBuilder
 {
-    private $client;
-    private $request;
+    private \GuzzleHttp\Client $client;
+    private \GuzzleHttp\Psr7\Request $request;
 
     public function __construct(\GuzzleHttp\Client $client, \GuzzleHttp\Psr7\Request $request)
     {
@@ -17,13 +17,13 @@ class QueryBuilder
 
     public function with(string ...$relationships)
     {
-        $this->request->withUri(
-            Uri::withQueryValue(
-                $this->request->getUri,
-                'include',
-                implode(',', $relationships)
-            )
+        $uri = Uri::withQueryValue(
+            $this->request->getUri(),
+            'include',
+            implode(',', $relationships)
         );
+
+        $this->request = $this->request->withUri($uri);
 
         return $this;
     }
@@ -33,6 +33,6 @@ class QueryBuilder
         $response = $this->client->send($this->request);
 
         $content = $response->getBody()->getContents();
-        return json_decode($content, true)['tickets'];
+        return json_decode($content, true);
     }
 }

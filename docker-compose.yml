@@ -10,7 +10,9 @@ services:
       - './docker/nginx/conf.d:/etc/nginx/conf.d'
 
   php:
-    build: ./docker/php
+    build:
+      dockerfile: ./docker/php/Dockerfile
+      context: .
     expose:
       - 9000
     volumes:

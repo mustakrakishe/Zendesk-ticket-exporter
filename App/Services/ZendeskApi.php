@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
-use GuzzleHttp\Client;
+use \App\Resources\QueryBuilder;
+use \GuzzleHttp\Client;
+use \GuzzleHttp\Psr7\Request;
 
 class ZendeskApi
 {
@@ -17,10 +19,8 @@ class ZendeskApi
         ]);
     }
 
-    public function getTickets()
+    public function tickets()
     {
-        $response = $this->client->get('tickets');
-        $content = $response->getBody()->getContents();
-        return json_decode($content, true)['tickets'];
+        return new QueryBuilder($this->client, new Request('GET', 'tickets'));
     }
 }

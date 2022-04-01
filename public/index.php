@@ -7,7 +7,7 @@ $SUBDOMAIN = 'mystakrakisheco';
 $TOKEN = 'SYPia0e4Eu49h22bsepcFjwQbDgnwPrsh2hCGcuD';
 
 $client = new \App\Services\ZendeskApi($SUBDOMAIN, $EMAIL, $TOKEN);
-$tickets = $client->getTickets();
+$tickets = $client->tickets()->get();
 
 $FIELD_HEADERS = [
     'id' => 'Ticket ID',

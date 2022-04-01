@@ -15,24 +15,29 @@ class QueryBuilder
         $this->request = $request;
     }
 
-    public function include(string ...$relationships)
-    {
-        $uri = Uri::withQueryValue(
-            $this->request->getUri(),
-            'include',
-            implode(',', $relationships)
-        );
-
-        $this->request = $this->request->withUri($uri);
-
-        return $this;
-    }
-
     public function get()
     {
         $response = $this->client->send($this->request);
 
         $content = $response->getBody()->getContents();
         return json_decode($content, true);
+    }
+
+    public function include(string ...$relationships)
+    {
+        return $this->where('include', implode(',', $relationships));
+    }
+
+    public function where(string $param, string $value)
+    {
+        $this->request = $this->request->withUri(
+            Uri::withQueryValue(
+                $this->request->getUri(),
+                $param,
+                $value
+            )
+        );
+
+        return $this;
     }
 }

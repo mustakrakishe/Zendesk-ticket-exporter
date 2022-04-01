@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\ZendeskApi;
 
-use \App\Resources\QueryBuilder;
-use \GuzzleHttp\Client;
+use \GuzzleHttp\Client as GuzzleClient;
 use \GuzzleHttp\Psr7\Request;
 
-class ZendeskApi
+class Client
 {
     public function __construct(string $subdomain, string $email, string $token)
     {
-        $this->client = new Client([
+        $this->client = new GuzzleClient([
             'base_uri' => 'https://' . $subdomain . '.zendesk.com/api/v2/',
             'headers' => [
                 'Accept' => 'application/json',

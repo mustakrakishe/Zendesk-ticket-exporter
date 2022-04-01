@@ -15,7 +15,7 @@ class QueryBuilder
         $this->request = $request;
     }
 
-    public function with(string ...$relationships)
+    public function include(string ...$relationships)
     {
         $uri = Uri::withQueryValue(
             $this->request->getUri(),

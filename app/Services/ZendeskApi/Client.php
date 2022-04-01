@@ -18,8 +18,8 @@ class Client
         ]);
     }
 
-    public function tickets()
+    public function resource(string $resource)
     {
-        return new QueryBuilder($this->client, new Request('GET', 'tickets'));
+        return new QueryBuilder($this->client, new Request('GET', $resource));
     }
 }

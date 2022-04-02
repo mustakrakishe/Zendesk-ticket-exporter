@@ -39,12 +39,11 @@ echo 'Prepare loaded data...' . '<br>';
 $users = array_column($response['users'], null, 'id');
 $groups = array_column($response['groups'], null, 'id');
 $organizations = array_column($response['organizations'], null, 'id');
-// $comments = setIdAsKey($response['comments']);
 
 echo 'Data is prepared.' . '<br>';
 echo 'Write the data to a file...' . '<br>';
 
-$file = fopen('tickets.csv', 'w');
+$file = fopen('../storage/tickets.csv', 'w');
 fputcsv($file, [
     'Ticket ID',
     'Description',

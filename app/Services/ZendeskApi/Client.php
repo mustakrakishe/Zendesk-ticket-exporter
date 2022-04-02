@@ -15,6 +15,7 @@ class Client
                 'Accept' => 'application/json',
                 'Authorization' => 'Basic ' . base64_encode($email . '/token:' . $token),
             ],
+            'http_errors' => false
         ]);
     }
 

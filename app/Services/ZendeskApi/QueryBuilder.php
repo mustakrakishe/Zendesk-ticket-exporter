@@ -2,6 +2,8 @@
 
 namespace App\Services\ZendeskApi;
 
+use ErrorException;
+use Exception;
 use \GuzzleHttp\Psr7\Uri;
 
 class QueryBuilder
@@ -18,8 +20,8 @@ class QueryBuilder
     public function get()
     {
         $response = $this->client->send($this->request);
-
         $content = $response->getBody()->getContents();
+
         return json_decode($content, true);
     }
 

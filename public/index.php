@@ -10,35 +10,34 @@ echo 'Load a data...' . '<br>';
 
 $client = new App\Services\ZendeskApi\Client($SUBDOMAIN, $EMAIL, $TOKEN);
 
-$response = $client
+$ticketsResponse = $client
+    ->resource('tickets')
+    ->include('users', 'groups', 'organizations')
+    ->get();
+
+$ticketEventsResponse = $client
     ->resource('incremental/ticket_events')
     ->where('start_time', 0)
     ->include('comment_events')
     ->get();
 
+echo 'Data is loaded.' . '<br>';
+echo 'Prepare the data...' . '<br>';
+
+$users = array_column($ticketsResponse['users'], null, 'id');
+$groups = array_column($ticketsResponse['groups'], null, 'id');
+$organizations = array_column($ticketsResponse['organizations'], null, 'id');
+
 $ticketComments = [];
-foreach ($response['ticket_events'] as $ticketEvent) {
+foreach ($ticketEventsResponse['ticket_events'] as $ticketEvent) {
     $ticketId = $ticketEvent['ticket_id'];
 
     foreach ($ticketEvent['child_events'] as $childEvent) {
         if ($childEvent['body']) {
-            $datetime = $childEvent['created_at'];
-            $ticketComments[$ticketId][$datetime] = $childEvent['body'];
+            $ticketComments[$ticketId][] = $childEvent;
         }
     }
 }
-
-$response = $client
-    ->resource('tickets')
-    ->include('users', 'groups', 'organizations')
-    ->get();
-
-echo 'Data is loaded.' . '<br>';
-echo 'Prepare loaded data...' . '<br>';
-
-$users = array_column($response['users'], null, 'id');
-$groups = array_column($response['groups'], null, 'id');
-$organizations = array_column($response['organizations'], null, 'id');
 
 echo 'Data is prepared.' . '<br>';
 echo 'Write the data to a file...' . '<br>';
@@ -62,30 +61,32 @@ fputcsv($file, [
     'Comments',
 ]);
 
-foreach ($response['tickets'] as $ticket) {
+foreach ($ticketsResponse['tickets'] as $ticket) {
     $agent = $users[$ticket['submitter_id']];
     $contact = $users[$ticket['requester_id']];
     $group = $groups[$ticket['group_id']];
     $organization = $organizations[$ticket['organization_id']];
     $comments = $ticketComments[$ticket['id']];
 
-    fputcsv($file, [
-        $ticket['id'],
-        $ticket['description'],
-        $ticket['status'],
-        $ticket['priority'],
-        $agent['id'],
-        $agent['name'],
-        $agent['email'],
-        $contact['id'],
-        $contact['name'],
-        $contact['email'],
-        $group['id'],
-        $group['name'],
-        $organization['id'],
-        $organization['name'],
-        implode('/r/n', $comments),
-    ]);
+    foreach ($comments as $comment) {
+        fputcsv($file, [
+            $ticket['id'],
+            $ticket['description'],
+            $ticket['status'],
+            $ticket['priority'],
+            $agent['id'],
+            $agent['name'],
+            $agent['email'],
+            $contact['id'],
+            $contact['name'],
+            $contact['email'],
+            $group['id'],
+            $group['name'],
+            $organization['id'],
+            $organization['name'],
+            $comment['body'],
+        ]);
+    }
 }
 
 fclose($file);

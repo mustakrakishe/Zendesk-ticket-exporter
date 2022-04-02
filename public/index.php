@@ -1,5 +1,20 @@
-<?php
+<form action="">
+    <label>
+        Subdomain
+        <input type="text" name="subdomain">
+    </label>
+    <label>
+        Email
+        <input type="text" name="email">
+    </label>
+    <label>
+        Password or token
+        <input type="text" name="identifier">
+    </label>
+</form>
 
+<?php
+exit;
 require_once '../vendor/autoload.php';
 
 $EMAIL = 'mustakrkish@gmail.com';

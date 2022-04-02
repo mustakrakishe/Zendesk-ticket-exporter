@@ -1,17 +1,29 @@
-<form action="">
-    <label>
-        Subdomain
-        <input type="text" name="subdomain">
-    </label>
-    <label>
-        Email
-        <input type="text" name="email">
-    </label>
-    <label>
-        Password or token
-        <input type="text" name="identifier">
-    </label>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zendesk tickets exporter</title>
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+    <form>
+        <div class="mb-3">
+            <label for="subdomain" class="form-label">Subdomain</label>
+            <input type="text" class="form-control" id="subdomain" name="subdomain">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+        <div class="mb-3">
+            <label for="token" class="form-label">Token</label>
+            <input type="token" class="form-control" id="token" name="token">
+        </div>
+        <button type="submit" class="btn btn-primary">Get tickets</button>
+    </form>
+</body>
+</html>
 
 <?php
 exit;

@@ -11,6 +11,24 @@ echo 'Load a data...' . '<br>';
 $client = new App\Services\ZendeskApi\Client($SUBDOMAIN, $EMAIL, $TOKEN);
 
 $response = $client
+    ->resource('incremental/ticket_events')
+    ->where('start_time', 0)
+    ->include('comment_events')
+    ->get();
+
+$ticketComments = [];
+foreach ($response['ticket_events'] as $ticketEvent) {
+    $ticketId = $ticketEvent['ticket_id'];
+
+    foreach ($ticketEvent['child_events'] as $childEvent) {
+        if ($childEvent['body']) {
+            $datetime = $childEvent['created_at'];
+            $ticketComments[$ticketId][$datetime] = $childEvent['body'];
+        }
+    }
+}
+
+$response = $client
     ->resource('tickets')
     ->include('users', 'groups', 'organizations')
     ->get();
@@ -18,9 +36,9 @@ $response = $client
 echo 'Data is loaded.' . '<br>';
 echo 'Prepare loaded data...' . '<br>';
 
-$users = setIdAsKey($response['users']);
-$groups = setIdAsKey($response['groups']);
-$organizations = setIdAsKey($response['organizations']);
+$users = array_column($response['users'], null, 'id');
+$groups = array_column($response['groups'], null, 'id');
+$organizations = array_column($response['organizations'], null, 'id');
 // $comments = setIdAsKey($response['comments']);
 
 echo 'Data is prepared.' . '<br>';
@@ -50,7 +68,7 @@ foreach ($response['tickets'] as $ticket) {
     $contact = $users[$ticket['requester_id']];
     $group = $groups[$ticket['group_id']];
     $organization = $organizations[$ticket['organization_id']];
-    $comment = '';
+    $comments = $ticketComments[$ticket['id']];
 
     fputcsv($file, [
         $ticket['id'],
@@ -67,14 +85,10 @@ foreach ($response['tickets'] as $ticket) {
         $group['name'],
         $organization['id'],
         $organization['name'],
+        implode('/r/n', $comments),
     ]);
 }
 
 fclose($file);
 
 echo 'The data is writed to the file.' . '<br>';
-
-function setIdAsKey($array) {
-    $ids = array_column($array, 'id');
-    return array_combine($ids, $array);
-}

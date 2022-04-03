@@ -5,16 +5,6 @@ const FORM = '#get-tickets-form';
 
 $(document).on('submit', FORM, formSubmitHandler);
 
-async function downloadTriggerClickHandler(e) {
-    e.preventDefault();
-    let filepath = await $.get({
-        url: 'http/DownloadFile.php',
-        data: {
-            filename: $(this).attr('data-filename')
-        }
-    });
-}
-
 async function formSubmitHandler(e) {
     e.preventDefault();
 

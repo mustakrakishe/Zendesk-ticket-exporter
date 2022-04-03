@@ -1,5 +1,7 @@
 <?php
 
+use GuzzleHttp\Exception\ClientException;
+
 if (!$_POST['subdomain'] || !$_POST['email'] || !$_POST['token']) {
     returnAjaxResponse([
         'status' => 'error',
@@ -11,28 +13,24 @@ require_once '../../vendor/autoload.php';
 
 $client = new App\Services\ZendeskApi\Client($_POST['subdomain'], $_POST['email'], $_POST['token']);
 
-$ticketsResponse = $client
-    ->resource('tickets')
-    ->include('users', 'groups', 'organizations')
-    ->get();
+try {
+    $ticketsResponse = $client
+        ->resource('tickets')
+        ->include('users', 'groups', 'organizations')
+        ->get();
 
-if ($ticketsResponse['error']) {
+    $ticketEventsResponse = $client
+        ->resource('incremental/ticket_events')
+        ->where('start_time', 0)
+        ->include('comment_events')
+        ->get();
+        
+} catch (ClientException $e) {
+    $responseBody = json_decode($e->getResponse()->getBody()->getContents());
+
     returnAjaxResponse([
         'status' => 'error',
-        'body' => $ticketsResponse['error'],
-    ]);
-}
-
-$ticketEventsResponse = $client
-    ->resource('incremental/ticket_events')
-    ->where('start_time', 0)
-    ->include('comment_events')
-    ->get();
-
-if ($ticketEventsResponse['error']) {
-    returnAjaxResponse([
-        'status' => 'error',
-        'body' => $ticketEventsResponse['error'],
+        'body' => $responseBody->error,
     ]);
 }
 

@@ -46,7 +46,7 @@ async function formSubmitHandler(e) {
         let error = response.body;
         if (error.title) {
             let title = $('<strong>').html(error.title);
-            let message = $('<p>').html(error.message);
+            let message = $('<div>').html(error.message);
 
             $(alert).html(title).append(message);
         } else {

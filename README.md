@@ -70,6 +70,6 @@ An alert will notificate you if it something wrong.
 
 ![Notification](https://github.com/mustakrakishe/Zendesk-ticket-exporter/blob/master/screenshots/02_notification.jpg "Notification")
 
-In seweral seconds, when CSV will be ready for download, you will be invited.
+In several seconds, when CSV will be ready for download, you will be invited.
 
 ![Download](https://github.com/mustakrakishe/Zendesk-ticket-exporter/blob/master/screenshots/03_download.jpg "Download")

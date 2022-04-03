@@ -1,11 +1,9 @@
 const ACTION_CONTAINER = '#action';
 const ALERT_CLASSES = 'alert-info alert-success alert-danger';
 const ALERT_CONTAINER = '#alert';
-const DOWNLOAD_TRIGGER = "#download";
 const FORM = '#get-tickets-form';
 
 $(document).on('submit', FORM, formSubmitHandler);
-// $(document).on('click', DOWNLOAD_TRIGGER, downloadTriggerClickHandler);
 
 async function downloadTriggerClickHandler(e) {
     e.preventDefault();

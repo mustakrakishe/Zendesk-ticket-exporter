@@ -15,8 +15,6 @@ async function downloadTriggerClickHandler(e) {
             filename: $(this).attr('data-filename')
         }
     });
-
-    console.log(filepath);
 }
 
 async function formSubmitHandler(e) {
@@ -37,7 +35,6 @@ async function formSubmitHandler(e) {
     $(alert).removeClass(ALERT_CLASSES);
 
     if (response.status == 'OK') {
-
         $(alert)
             .html(response.body)
             .addClass('alert-success')

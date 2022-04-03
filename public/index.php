@@ -18,7 +18,10 @@
             <form id="get-tickets-form" action="http/GetTickets.php" method="post">
                 <div class="mb-3">
                     <label for="subdomain" class="form-label">Subdomain</label>
-                    <input type="text" class="form-control" id="subdomain" name="subdomain">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="subdomain" name="subdomain">
+                        <span class="input-group-text"">.zendesk.com</span>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>

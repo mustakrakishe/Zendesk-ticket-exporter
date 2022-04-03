@@ -2,8 +2,6 @@
 
 namespace App\Services\ZendeskApi;
 
-use ErrorException;
-use Exception;
 use \GuzzleHttp\Psr7\Uri;
 
 class QueryBuilder

@@ -427,10 +427,6 @@
                 "sass",
                 "web"
             ],
-            "support": {
-                "issues": "https://github.com/twbs/bootstrap/issues",
-                "source": "https://github.com/twbs/bootstrap/tree/v5.1.3"
-            },
             "time": "2021-10-09T06:43:19+00:00"
         }
     ],

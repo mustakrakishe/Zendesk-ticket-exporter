@@ -72,8 +72,8 @@ fputcsv($file, [
 ]);
 
 foreach ($ticketsResponse['tickets'] as $ticket) {
-    $agent = $users[$ticket['submitter_id']];
-    $contact = $users[$ticket['requester_id']];
+    $submitter = $users[$ticket['submitter_id']];
+    $requester = $users[$ticket['requester_id']];
     $group = $groups[$ticket['group_id']];
     $organization = $organizations[$ticket['organization_id']];
     $comments = $ticketComments[$ticket['id']];
@@ -84,12 +84,12 @@ foreach ($ticketsResponse['tickets'] as $ticket) {
             $ticket['description'],
             $ticket['status'],
             $ticket['priority'],
-            $agent['id'],
-            $agent['name'],
-            $agent['email'],
-            $contact['id'],
-            $contact['name'],
-            $contact['email'],
+            $submitter['id'],
+            $submitter['name'],
+            $submitter['email'],
+            $requester['id'],
+            $requester['name'],
+            $requester['email'],
             $group['id'],
             $group['name'],
             $organization['id'],

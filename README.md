@@ -66,7 +66,7 @@ The UI will looks like showing below.
 ![Init state](https://github.com/mustakrakishe/Zendesk-ticket-exporter/blob/master/screenshots/01_init.jpg "Init state")
 
 Fill and submit the form.
-An alert will notificate you if it something wrong.
+An alert will notificate you if something is wrong.
 
 ![Notification](https://github.com/mustakrakishe/Zendesk-ticket-exporter/blob/master/screenshots/02_notification.jpg "Notification")
 

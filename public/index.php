@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Zendesk tickets exporter</title>
+    <title>Zendesk ticket exporter</title>
 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <script src="js/jquery-3.6.0.min.js"></script>

@@ -63,13 +63,13 @@ Browse your site (localhost:80 by default).
 
 The UI will looks like showing below.
 
-![Init state](https://raw.githubusercontent.com/mustakrakishe/Zendesk-ticket-exporter/master/screenshots/01_init.jpg "Init state")
+![Init state](https://github.com/mustakrakishe/Zendesk-ticket-exporter/blob/master/screenshots/01_init.jpg "Init state")
 
 Fill and submit the form.
 An alert will notificate you if it something wrong.
 
-![Notification](https://raw.githubusercontent.com/mustakrakishe/Zendesk-ticket-exporter/master/screenshots/02_notification.jpg "Notification")
+![Notification](https://github.com/mustakrakishe/Zendesk-ticket-exporter/blob/master/screenshots/02_notification.jpg "Notification")
 
 In seweral seconds, when CSV will be ready for download, you will be invited.
 
-![Download](https://raw.githubusercontent.com/mustakrakishe/Zendesk-ticket-exporter/master/screenshots/03_download.jpg "Download")
+![Download](https://github.com/mustakrakishe/Zendesk-ticket-exporter/blob/master/screenshots/03_download.jpg "Download")
